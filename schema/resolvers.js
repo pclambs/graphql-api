@@ -27,6 +27,29 @@ const resolvers = {
   User: {
     favoriteMovies: () => {
       return _.filter(MovieList, (movie) => movie.releaseDate >= 2000 && movie.releaseDate <= 2010)   }
+  },
+  Mutation: {
+    createUser: (parent, args) => {
+      const newUser = args.input
+      // TODO: insert to database table
+      newUser.id = UserList.length + 1
+      UserList.push(newUser)
+      console.log(newUser)
+      return newUser
+    },
+    updateUsername: (parent, args) => {
+      const { id, newUsername } = args.input
+      let updatedUser
+      UserList.forEach((user) => {
+        if (user.id === id) {
+          user.username = newUsername
+          updatedUser = user
+        }
+      })
+
+      return updatedUser
+    }
+  
   }
 }
 
