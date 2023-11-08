@@ -41,30 +41,20 @@ const resolvers = {
       const { id, newUsername } = args.input
       let updatedUser
       UserList.forEach((user) => {
-        if (user.id === id) {
+        if (user.id ===  Number(id)) {
           user.username = newUsername
           updatedUser = user
         }
       })
 
       return updatedUser
+    },
+    deleteUser: (parent, args) => {
+      const id = args.id
+      _.remove(UserList, (user) => user.id ===  Number(id))
+      return null
     }
-  
   }
 }
 
 module.exports = { resolvers }
-// friends: (parent) => {
-//   const friendsList = parent.friends
-//   const friends = _.filter(UserList, (user) => {
-//     return _.includes(friendsList, user.id)
-//   })
-//   return friends
-// },
-// favoriteMovies: (parent) => {
-//   const favoriteMoviesList = parent.favoriteMovies
-//   const favoriteMovies = _.filter(MovieList, (movie) => {
-//     return _.includes(favoriteMoviesList, movie.id)
-//   })
-//   return favoriteMovies
-// }
